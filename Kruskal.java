@@ -6,7 +6,7 @@ public class Kruskal{
     public static WGraph kruskal(WGraph g){
 
         /* Fill this method (The statement return null is here only to compile) */
-        DisjointSets m = new DisjointSets(g.getNbNodes());
+        DisjointSets m = new DisjointSets(g.getNbNodes()); //we create Disjoints structure 
         WGraph MSTgraph = new WGraph();
         for(int x=0; x<g.listOfEdgesSorted().size(); x++) {
             if(IsSafe(m, (g.listOfEdgesSorted()).get(x)) == true) {
