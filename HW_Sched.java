@@ -28,9 +28,13 @@ class Assignment implements Comparator<Assignment>{
 	@Override
 	public int compare(Assignment a1, Assignment a2) {
 		//YOUR CODE GOES HERE, DONT FORGET TO EDIT THE RETURN STATEMENT
-		
-		
-		return 0;
+                if(a2.weight > a1.weight) {
+                    return 1;
+                }
+                if(a2.weight < a1.weight) {
+                    return -1;
+                }
+                else return 0;				
 	}
 }
 
@@ -65,10 +69,40 @@ public class HW_Sched {
 		//Initializes the homeworkPlan, which you must fill out and output
 		int[] homeworkPlan = new int[Assignments.size()];
 		//YOUR CODE GOES HERE
-	
+                int t = 0;
+	        for(int x=0; x<Assignments.size(); x++) {
+                    t = available(Assignments.get(x).deadline, homeworkPlan);
+                    if(t != -1) {
+                        homeworkPlan[Assignments.get(x).number] = t;
+                    }
+                    if(t == -1) {
+                        homeworkPlan[Assignments.get(x).number] = 0;
+                    }
+                }
 		
 		return homeworkPlan;
 	}
+        
+        //helper method
+        public static int available(int deadline, int[] homeworkPlan) {
+            boolean conflict = false;
+            if(deadline == 0) {
+                return -1;
+            }
+            for(int y=0; y<homeworkPlan.length; y++) {
+                if(deadline == homeworkPlan[y]) {
+                    conflict = true;
+                }
+                if(conflict == true) {
+                    deadline = available(deadline - 1, homeworkPlan);
+                    break;
+                }
+            }
+            if(conflict == false) {
+                return deadline;
+            }
+            return deadline;
+        }
 }
 	
 
